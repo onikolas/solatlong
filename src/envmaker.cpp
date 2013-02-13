@@ -20,7 +20,6 @@ int main(int argc, char** argv)
 		cout << "  [center y]         \n";
 		cout << "  [width]            Width of the latlong to be created. Height is set to width/2)\n";
 		cout << "  [latlong image]    Filename of the latlong image\n\n";
-		cout << "  Note: The diameter is ignored if the focal length is provided\n";
 		return -1;
 	}
 
