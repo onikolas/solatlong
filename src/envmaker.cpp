@@ -56,9 +56,13 @@ int main(int argc, char** argv)
 	}
 	else
 	{
-		latlong_w = w;
-		latlong_h = latlong_w/2;
+		cout << "Setting latlong image height to diameter/2" << endl;
+		latlong_h = diameter/2;
+		latlong_w = latlong_h*2;
 	}
+
+	if(latlong_h > diameter)
+		cout << "Warning: width > diameter. This will result in upscaling\n";
 
 	latlong = new fRGB[latlong_w*latlong_h];
 
@@ -90,9 +94,14 @@ int main(int argc, char** argv)
 			//int x = (diameter/2) * sin(theta) * cos(phi) + centerx;
 			//int y = (diameter/2) * sin(theta) * sin(phi) + centery;
 
-			latlong[i*latlong_w+j] = fisheye[y*w+x];
+			for(int a=-1; a<2; a++)
+				for(int b=-1; b<2; b++)
+					latlong[i*latlong_w+j] += fisheye[(y+a)*w+x+b];
+			latlong[i*latlong_w+j] = latlong[i*latlong_w+j]/9;
+			//latlong[i*latlong_w+j] = fisheye[y*w+x];
 		}
 	}
+
 	string filename;
 	if(argc == 8)
 		filename = argv[7];
